@@ -6,7 +6,8 @@
 
 # Preview of the application
 <div align="center">
-    <img src="https://github.com/user-attachments/assets/563e9d3f-1f06-4b19-b520-b68738e8776e"/>
+    <img src="https://github.com/user-attachments/assets/3de724a4-6f0c-4766-9855-4a4991aa1472"/>
+
 </div>
 
 ## License
