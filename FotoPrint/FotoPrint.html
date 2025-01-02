@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Set the character set and the title of the document -->
+    <meta charset="utf-8">
+    <title>FotoPrint</title>
+
+    <!-- Include Bootstrap CSS from a CDN for styling -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <!-- Include Bootstrap Icons CSS from a CDN for icon support -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <script src="https://kit.fontawesome.com/7d5e86577f.js" crossorigin="anonymous"></script>
+
+    <!-- Include custom styling from a local CSS file -->
+    <link rel="stylesheet" href="css/styling.css">
+
+    <!-- Include JavaScript files for the application logic -->
+    <script src="js/FotoPrint_manager.js"></script>
+    <script src="js/FotoPrint.js"></script>
+    <script src="js/DrawingObjects.js"></script>
+    
+</head>
+<header class="title text-center mb-4">
+    <h1 style="font-size: 4rem;">FOTOPRINT</h1>
+</header>
+
+<div class="container-xxl">
+  <section class="tools-board">
+    <div class="row mt-2">
+      <label class="title">Shapes</label>
+      <canvas id="pickShapes">
+        Your browser doesn't recognize the canvas element
+      </canvas>
+      <ul class="options">
+        <li class="option tool" id="picture">
+          <label for="inserirImagem" class="form-label">Choose Photo</label>
+          <input id="inserirImagem" type="file" name="imagem" onchange="insertImage()">
+          <label for="inserirImagem"><i class="fas fa-image" id="picture"></i></label>
+        </li>
+        <li class="option tool" id="text">
+          <a onclick="insertText()"><label for="pencil" id="pencil" class="form-label">Choose Text</label>
+          <i class="fa-solid fa-pencil" id="pencil"></i></a>
+        </li>
+      </ul>
+    </div>    
+    <div class="row">
+      <label class="title">Options</label>
+      <ul class="options">
+        <li class="option tool" id="brush">
+          <label for="colorBackground" class="form-label">Background Color</label>
+          <input type="color" class="form-control form-control-color" id="colorBackground" value="#ffffff" onchange="app.changeBackgroundColor(this.value);" style="margin-left: 35%;">
+        </li>
+        <li class="option tool" id="eraser">
+          <label for="colorShape" class="form-label">Shape Color</label>
+          <input type="color" class="form-control form-control-color" id="colorShape" value="#faab41" onchange="app.updateColor(this.value);" style="margin-left: 35%;">
+        </li>
+        <li class="option" syte=" display: inline-block;">
+          <span>Size</span><br/>
+          <input type="range" min="3" max="8" value="1" class="form-range" id="size-slider" oninput="resizeObject(this.value);" style="display: block;">
+        </li>
+        <!--<li class="option" syte=" display: inline-block;">
+          <span>Rotation</span><br/>
+          <input type="range" class="form-range" id="rotation-slider" oninput="rotateObject(this.value);" min="0" max="360" value="90" style="display: block;">
+        </li>-->
+      </ul>
+    </div>
+    <div class="row buttons" style="text-align: center;">
+      <button class="remove" id="remove" onclick="remove();">Remove Shape</Object></button>
+      <button class="clear-canvas" onclick="reset();">Clear Canvas</button>
+      <button class="save-img" id="save-as-image"  onclick="saveasimage();">Save As Image</button>  
+      <button class="open-popUp" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa-solid fa-circle-info"></i></button>
+     
+      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header text-center">
+              <label class="modal-title title text-center" id="staticBackdropLabel">Info</label>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p>
+                <b>Create:</b><br/>
+                  Click once on the shape, text, or image you want to create.<br/><br/>
+          
+                  <b>Place on Canvas:</b><br/>
+                  Double-click on the canvas to position the selected shape.<br/><br/>
+          
+                  <b>Edit and Move:</b><br/>
+                  Single-click to select a shape for moving.<br/>
+                  Double-click to clone the selected shape.<br/><br/>
+          
+                  <b>Customize:</b><br/>
+                  When a shape is selected, modify its color, size, or remove it.<br/><br/>
+          
+                  <b>Global Changes:</b><br/>
+                  If no shape is selected:<br/>
+                     > Change the color of all example shapes.<br/>
+                     > Change the background color.<br/>
+                     > Delete everything from the canvas.<br/><br/>
+
+                  <b>Download:</b><br/>
+                  Save your canvas as a PNG file.<br/>
+                  </p>
+                </div>
+            <div class="modal-footer">
+              <button type="button" class="btn save-img" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div> 
+    </div>
+  </section>
+
+
+  
+  <section class="drawing-board">
+    <canvas id="canvas">
+        Your browser doesn't recognize the canvas element
+    </canvas>
+  </section>
+</div>
+
+    <!-- Script to call the 'main' function when the window loads -->
+    <script>
+        window.onload = main;
+    </script>
+
+    <!-- Include Bootstrap JS from a CDN for additional functionality -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/6.0.0/bootbox.min.js" integrity="sha512-oVbWSv2O4y1UzvExJMHaHcaib4wsBMS5tEP3/YkMP6GmkwRJAa79Jwsv+Y/w7w2Vb/98/Xhvck10LyJweB8Jsw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/6.0.0/bootbox.js" integrity="sha512-kwtW9vT4XIHyDa+WPb1m64Gpe1jCeLQLorYW1tzT5OL2l/5Q7N0hBib/UNH+HFVjWgGzEIfLJt0d8sZTNZYY6Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
+
+</html>

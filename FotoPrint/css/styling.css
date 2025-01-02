@@ -1,0 +1,240 @@
+/* Import Google font - Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap'); /*title*/
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f7f4f0;
+  flex-direction: column;  
+  height: 100vh;
+  width: 100vw;
+}
+
+.title{
+  font-family: 'Major Mono Display', monospace;
+}
+
+.modal{
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.container-xxl{
+  display: flex;
+  flex-wrap: wrap;
+  overflow: auto;
+  gap: 10px;
+  max-width: 75%;
+  max-height: 100%;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+#inserirImagem {
+  display: none;
+}
+
+#picture {
+  margin-left: -7px;
+  cursor: pointer;
+}
+
+section{
+  border-radius: 7px;
+}
+
+#canvas {
+  cursor:crosshair;
+  background-color: #fff;
+  object-fit: contain;
+  
+}
+
+#pickShapes {
+  cursor:  pointer;
+  object-fit: contain;
+}
+
+.tools-board{
+  width: 210px;
+  padding: 15px 22px;
+  background: var(--bs-white);
+}
+
+.tools-board .row{
+  margin-bottom: 20px;
+}
+
+.row .options{
+  list-style: none;
+  margin: 10px 0 0 5px;
+}
+
+.row .options .option{
+  cursor: pointer;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.option:is(:hover, .active) img{
+  filter: invert(17%) sepia(90%) saturate(3000%) hue-rotate(900deg) brightness(100%) contrast(100%);
+}
+
+.option :where(span, label){
+  color: #5A6168;
+  cursor: pointer;
+  padding-left: 10px;
+}
+
+.option:is(:hover, .active) :where(span, label){
+  color: #faab41;
+}
+
+.option #fill-color{
+  cursor: pointer;
+  height: 14px;
+  width: 14px;
+}
+
+#fill-color:checked ~ label{
+  color: #faab41;
+}
+
+.option #size-slider{
+  width: 100%;
+  height: 5px;
+  margin-top: 10px;
+  color: #faab41;
+}
+
+.option.selected::before{
+  position: absolute;
+  content: "";
+  top: 50%;
+  left: 50%;
+  height: 12px;
+  width: 12px;
+  background: inherit;
+  border-radius: inherit;
+  border: 2px solid #fff;
+  transform: translate(-50%, -50%);
+}
+
+.option:first-child.selected::before{
+  border-color: #ccc;
+}
+
+.option #color-picker{
+  opacity: 0;
+  cursor: pointer;
+}
+
+.buttons button{
+  width: 70%;
+  height: 70%;
+  color: #fff;
+  border: none;
+  outline: none;
+  padding: 8px 0;
+  font-size: 0.9rem;
+  margin: 0 auto 13px;
+  background: none;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.buttons .clear-canvas{
+  color: #282828;
+  border: 1px solid #282828;
+  transition: all 0.3s ease;
+}
+
+.clear-canvas:hover{
+  color: #fff;
+  background: #282828;
+}
+
+.buttons .save-img{
+  background: #faab41;
+  border: 1px solid #faab41;
+}
+
+.save-img:hover{
+  color: #fff;
+  background: #282828;
+  border: 1px solid #282828;
+}
+
+.buttons .remove{
+  color: #282828;
+  border: 1px solid #faab41;
+  transition: all 0.3s ease;
+}
+
+.remove:disabled,
+.remove[disabled]{
+  background-color: #999696;
+  color: #282828;
+  border: 1px solid #999696;
+}
+
+.remove:hover:enabled{
+  color: #fff;
+  background: #faab41;
+}
+
+.buttons .open-popUp{
+  background: none;
+  border: none;
+  height: 25% !important;
+  margin-bottom: -20px !important;
+  margin-top: -10px !important;
+  display: block;
+}
+
+.buttons .open-popUp .fa-solid{
+  color:#faab41;
+  font-size: large;
+}
+
+.open-popUp:hover, .fa-solid:hover{
+  color: #282828 !important;
+}
+
+.drawing-board{
+  flex: 1;
+  overflow: hidden;
+}
+
+.drawing-board canvas{
+  width: auto;
+  height: auto;
+   width: 100%;
+   height: 77vh; 
+   margin-bottom: -15px;
+}
+
+@media (max-width: 992px) {
+  .drawing-board canvas{
+    width: auto;
+    height: auto;
+ }
+}
+
+@media screen and (min-height:600px){
+  .drawing-board canvas{
+    width: auto;
+    height: auto;
+ }
+}
+
+.form-range::-moz-range-thumb {
+  background: #000; 
+  cursor: pointer; 
+}
